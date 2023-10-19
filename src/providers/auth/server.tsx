@@ -37,5 +37,5 @@ export async function ServerAuthProvider({
   const tokens = await getTokens(cookies(), AUTH_CONFIG);
   const user = tokens ? mapTokensToUser(tokens) : null;
 
-  return <AuthProvider defaultUser={user}>{user && children}</AuthProvider>;
+  return <AuthProvider defaultUser={user}>{children}</AuthProvider>;
 }
