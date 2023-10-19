@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export const Navbar = () => {
   return (
-    <nav className="bg-white border-gray-200 max-w-[750px] mx-auto rounded-3xl border w-full">
+    <nav className="bg-white border-gray-200 max-w-[750px] mx-auto rounded-3xl border w-full mb-8">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="https://flowbite.com/" className="flex items-center">
           <img

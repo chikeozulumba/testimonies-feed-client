@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning>
         <ServerAuthProvider>
-          <main className="max-w-[750px] mx-auto flex flex-col gap-4">
+          <main className="max-w-[750px] mx-auto">
             {children}
           </main>
         </ServerAuthProvider>
