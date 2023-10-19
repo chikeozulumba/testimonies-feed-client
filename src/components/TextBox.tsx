@@ -11,6 +11,7 @@ export const TextBox = () => {
   const uploadImagesRef = useRef<HTMLInputElement | null>(null);
 
   const [processing, setProcessing] = useState<boolean>(false);
+  const [title, setTitle] = useState<string|undefined>(undefined);
   const [comment, setComment] = useState<string>(DUMMY_TEXT);
   const [image, setImage] = useState<File | null>(null);
   const [attachment, setAttachment] = useState<File | null>(null);
@@ -29,10 +30,6 @@ export const TextBox = () => {
     }
   };
 
-  const formChangesText = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(evt.target?.value);
-  };
-
   const submitForm = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (!user) return;
@@ -44,7 +41,8 @@ export const TextBox = () => {
       formData.append("uid", user?.uid);
       user?.photoURL && formData.append("userPhoto", user?.photoURL);
       user?.displayName && formData.append("author", user?.displayName);
-      formData.append("comment", comment);
+      comment && formData.append("comment", comment);
+      title && formData.append("title", title);
       image && formData.append("image", image);
       attachment && formData.append("attachment", attachment);
 
@@ -65,20 +63,36 @@ export const TextBox = () => {
     <>
       <form onSubmit={submitForm}>
         <div className="w-full mb-4 border border-gray-200 rounded-3xl bg-gray-50 dark:bg-gray-700 dark:border-gray-600 overflow-hidden">
-          <div className="px-4 py-2 bg-white rounded-t-lg">
-            <label htmlFor="comment" className="sr-only">
-              Your comment
-            </label>
-            <textarea
-              id="comment"
-              name="comment"
-              rows={4}
-              className="w-full px-0 text-sm resize-none text-gray-900 bg-white border-0 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-              placeholder="Write a comment..."
-              defaultValue={comment}
-              onChange={(evt) => formChangesText(evt)}
-              required
-            ></textarea>
+          <div className="bg-white px-4 py-2 rounded-t-lg">
+            <div>
+              <label htmlFor="title" className="sr-only">
+                Titile
+              </label>
+              <input
+                id="title"
+                name="title"
+                type="text"
+                className="px-0 border-none w-full text-lg placeholder-shown:opacity-75 font-semibold resize-none text-gray-900 bg-white focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                placeholder="Give your testimony a title..."
+                defaultValue={title}
+                onChange={(evt) => setTitle(evt.target.value)}
+              />
+            </div>
+            <div className="mt-4">
+              <label htmlFor="comment" className="sr-only">
+                Your comment
+              </label>
+              <textarea
+                id="comment"
+                name="comment"
+                rows={4}
+                className="px-0 w-full text-sm resize-none text-gray-900 bg-white border-0 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                placeholder="Write a comment..."
+                defaultValue={comment}
+                onChange={(evt) => setComment(evt.target.value)}
+                required
+              ></textarea>
+            </div>
           </div>
           <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
             <button

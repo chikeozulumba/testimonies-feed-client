@@ -9,6 +9,7 @@ export async function POST(request: NextRequest) {
   const uid = payload.get("uid");
   const userPhoto = payload.get("userPhoto");
   const author = payload.get("author");
+  const title = payload.get("title");
   const comment = payload.get("comment");
   const image = payload.get("image") as unknown as File;
   const attachment = payload.get("attachment") as unknown as File;
@@ -48,6 +49,7 @@ export async function POST(request: NextRequest) {
     attachment: null,
     userPhoto,
     author,
+    title,
   };
 
   files.forEach((file) => {
