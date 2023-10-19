@@ -21,7 +21,7 @@ export const Navbar = ({ user }: Props) => {
             className="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-normal rounded-3xl text-xs text-center mr-3 md:mr-0"
           >
             <img
-              src={"/images/avatar.jpg"}
+              src={user.photoURL || "/images/avatar.jpg"}
               className="h-8 rounded-3xl"
               alt="Flowbite Logo"
             />
