@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ServerAuthProvider } from "@/providers/auth/server";
-import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +17,6 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <ServerAuthProvider>
           <main className="max-w-[750px] mx-auto flex flex-col gap-4">
-            <Navbar />
             {children}
           </main>
         </ServerAuthProvider>

@@ -1,10 +1,11 @@
 import { getTokens } from "next-firebase-auth-edge/lib/next/tokens";
 import { cookies } from "next/headers";
 import { filterStandardClaims } from "next-firebase-auth-edge/lib/auth/claims";
-import { AuthProvider } from "./client";
 import { Tokens } from "next-firebase-auth-edge/lib/auth";
-import { User } from "./context";
 import { AUTH_CONFIG } from "@/config/server";
+import { Navbar } from "@/components/Navbar";
+import { AuthProvider } from "./client";
+import { User } from "./context";
 
 const mapTokensToUser = ({ decodedToken }: Tokens): User => {
   const {
@@ -37,5 +38,10 @@ export async function ServerAuthProvider({
   const tokens = await getTokens(cookies(), AUTH_CONFIG);
   const user = tokens ? mapTokensToUser(tokens) : null;
 
-  return <AuthProvider defaultUser={user}>{children}</AuthProvider>;
+  return (
+    <AuthProvider defaultUser={user}>
+      <Navbar />
+      {children}
+    </AuthProvider>
+  );
 }
