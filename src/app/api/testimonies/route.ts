@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
   const attachment = payload.get("attachment") as unknown as File;
   const documentId = uuidv4();
   const time = new Date().getTime();
+  const assetUrl = process.env.CLOUDFLARE_R2_URL
 
   const files = [];
   if (!uid) return;
@@ -46,7 +47,7 @@ export async function POST(request: NextRequest) {
   };
 
   files.forEach((file) => {
-    const fullUrlPath = `${file.type}/${uid}/${documentId}/${time}--${file.name}`;
+    const fullUrlPath = `${assetUrl}/${file.type}/${uid}/${documentId}/${time}--${file.name}`;
     const field = file.key as "image" | "attachment";
     record[field] = fullUrlPath;
   });
