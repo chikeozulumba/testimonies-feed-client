@@ -40,7 +40,7 @@ export async function ServerAuthProvider({
 
   return (
     <AuthProvider defaultUser={user}>
-      {user && <Navbar />}
+      {user && <Navbar user={user} />}
       {children}
     </AuthProvider>
   );

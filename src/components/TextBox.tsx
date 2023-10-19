@@ -38,6 +38,8 @@ export const TextBox = () => {
 
     const formData = new FormData();
     formData.append("uid", user?.uid);
+    user?.photoURL && formData.append("userPhoto", user?.photoURL);
+    user?.displayName && formData.append("author", user?.displayName);
     formData.append("comment", comment);
     image && formData.append("image", image);
     attachment && formData.append("attachment", attachment);

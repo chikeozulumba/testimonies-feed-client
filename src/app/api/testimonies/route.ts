@@ -7,12 +7,14 @@ import { writeToFirestoreDB } from "@/lib/firebase/firestore";
 export async function POST(request: NextRequest) {
   const payload = await request.formData();
   const uid = payload.get("uid");
+  const userPhoto = payload.get("userPhoto");
+  const author = payload.get("author");
   const comment = payload.get("comment");
   const image = payload.get("image") as unknown as File;
   const attachment = payload.get("attachment") as unknown as File;
   const documentId = uuidv4();
   const time = new Date().getTime();
-  const assetUrl = process.env.CLOUDFLARE_R2_URL
+  const assetUrl = process.env.CLOUDFLARE_R2_URL;
 
   const files = [];
   if (!uid) return;
@@ -44,6 +46,8 @@ export async function POST(request: NextRequest) {
     uid,
     image: null,
     attachment: null,
+    userPhoto,
+    author,
   };
 
   files.forEach((file) => {

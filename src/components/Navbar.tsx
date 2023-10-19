@@ -1,15 +1,16 @@
+import { User } from "../providers/auth/context";
 import Image from "next/image";
 
-export const Navbar = () => {
+type Props = {
+  user: User
+}
+
+export const Navbar = ({ user }: Props) => {
+
   return (
     <nav className="bg-white border-gray-200 max-w-[750px] mx-auto rounded-3xl border w-full mb-8">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="https://flowbite.com/" className="flex items-center">
-          <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-8 mr-3"
-            alt="Flowbite Logo"
-          />
           <span className="self-center text-2xl font-semibold whitespace-nowrap">
             Flowbite
           </span>
@@ -17,9 +18,13 @@ export const Navbar = () => {
         <div className="flex md:order-2">
           <button
             type="button"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-normal rounded-3xl text-xs px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-normal rounded-3xl text-xs text-center mr-3 md:mr-0"
           >
-            Get started
+            <img
+              src={"/images/avatar.jpg"}
+              className="h-8 rounded-3xl"
+              alt="Flowbite Logo"
+            />
           </button>
           <button
             data-collapse-toggle="navbar-cta"
