@@ -10,6 +10,7 @@ export const TextBox = () => {
   const uploadAttachmentsRef = useRef<HTMLInputElement | null>(null);
   const uploadImagesRef = useRef<HTMLInputElement | null>(null);
 
+  const [processing, setProcessing] = useState<boolean>(false);
   const [comment, setComment] = useState<string>(DUMMY_TEXT);
   const [image, setImage] = useState<File | null>(null);
   const [attachment, setAttachment] = useState<File | null>(null);
@@ -32,25 +33,31 @@ export const TextBox = () => {
     setComment(evt.target?.value);
   };
 
-  const submitForm = (evt: FormEvent<HTMLFormElement>) => {
+  const submitForm = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (!user) return;
+    setProcessing(true);
 
-    const formData = new FormData();
-    formData.append("uid", user?.uid);
-    user?.photoURL && formData.append("userPhoto", user?.photoURL);
-    user?.displayName && formData.append("author", user?.displayName);
-    formData.append("comment", comment);
-    image && formData.append("image", image);
-    attachment && formData.append("attachment", attachment);
+    try {
+      const formData = new FormData();
+      formData.append("uid", user?.uid);
+      user?.photoURL && formData.append("userPhoto", user?.photoURL);
+      user?.displayName && formData.append("author", user?.displayName);
+      formData.append("comment", comment);
+      image && formData.append("image", image);
+      attachment && formData.append("attachment", attachment);
 
-    fetch("/api/testimonies", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      body: formData,
-    });
+      await fetch("/api/testimonies", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        body: formData,
+      });
+      setProcessing(false);
+    } catch (error) {
+      setProcessing(false);
+    }
   };
 
   return (
